@@ -119,6 +119,9 @@ Refer to the [official netfox documentation](https://foxssake.github.io/netfox/l
 
 This repo is developed directly inside a Godot project's `addons/netfoxcs` folder (with its own `git init`), rather than as a standalone library synced in afterward. This is intentional, it makes it easy to iterate and test changes against a real project while working on the wrapper. If you clone this repo to contribute, you'll likely want to drop it into `addons/netfoxcs` of a Godot + netfox test project so you can run and verify changes in-editor.
 
+## Credits
+- [netfox](https://github.com/foxssake/netfox) by Fox's Sake Studios, the original GDScript addon this project wraps.
+- [NetfoxSharp](https://github.com/CyFurStudios/NetfoxSharp) by CyFurStudios, much of NetfoxCs's code is adapted from NetfoxSharp. The `netfox.extras` `RewindableStateMachine` and `RewindableState` classes are copied as-is, since they're abstract/blueprint classes meant to be inherited from rather than wrapped. Most other classes started from NetfoxSharp's implementation and were modified to work as thin wrappers around the existing GDScript nodes instead of generating proxy nodes. Many thanks to the NetfoxSharp contributors for the groundwork.
 ## Contributing
 
 Issues and PRs are welcome. If you're adding coverage for a new netfox class or method, please try to keep naming consistent with the PascalCase convention used throughout the wrapper.
