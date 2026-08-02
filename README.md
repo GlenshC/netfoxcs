@@ -1,4 +1,9 @@
 # NetfoxCs
+[![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/GlenshC/netfoxcs/blob/master/LICENSE)
+[![Documentation](https://img.shields.io/badge/Docs-github.io-blue)](https://foxssake.github.io/netfox/latest/)
+[![Netfox](https://img.shields.io/badge/View-netfox-orange)](https://github.com/foxssake/netfox/)
+[![Supported Version](https://img.shields.io/badge/Supports_netfox-v1.35-blue)](https://github.com/foxssake/netfox/)
+[![Godot_Version](https://img.shields.io/badge/Supports_Godot-4.1+-blue)](https://godotengine.org/download/archive/)
 
 A lightweight C# wrapper for [netfox](https://github.com/foxssake/netfox), the GDScript addon for building rollback-friendly multiplayer games in Godot.
 
