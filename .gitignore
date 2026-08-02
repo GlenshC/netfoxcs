@@ -1,0 +1,47 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+*.o
+*.os
+*.obj
+*.suo
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+.vscode/
+.idea/
+cmake-build-*/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+.sconsign.dblite
+.sconsign/
+
+.mono/
+data_*/
+mono_crash.*.json
+[Dh]template.*/
+
+# Build artifacts
+bin/
+obj/
+
+# Visual Studio / Rider project files
+*.sln
+*.csproj
+
+*.log
+*.tmp
+/.vs
+UpgradeLog.htm
+Limitless.csproj.user
+Properties/launchSettings.json
+
+
+# Godot
+*.uid
