@@ -30,12 +30,12 @@ Install NetfoxCs by copying the repo directly into your project's `addons` folde
    ```
    your-project/
    └── addons/
-       └── NetfoxCs/
+       └── netfoxcs/
            ├── ... NetfoxCs source files
    ```
    For example, from your project root:
    ```
-   git clone https://github.com/GlenshC/NetfoxCs.git addons/NetfoxCs
+   git clone https://github.com/GlenshC/netfoxcs.git addons/netfoxcs
    ```
 3. Enable the plugin in **Project > Project Settings > Plugins**.
 4. Build your project so the C# assembly picks up the new classes.
@@ -117,7 +117,7 @@ Refer to the [official netfox documentation](https://foxssake.github.io/netfox/l
 
 ## Development notes
 
-This repo is developed directly inside a Godot project's `addons/NetfoxCs` folder (with its own `git init`), rather than as a standalone library synced in afterward. This is intentional, it makes it easy to iterate and test changes against a real project while working on the wrapper. If you clone this repo to contribute, you'll likely want to drop it into `addons/NetfoxCs` of a Godot + netfox test project so you can run and verify changes in-editor.
+This repo is developed directly inside a Godot project's `addons/netfoxcs` folder (with its own `git init`), rather than as a standalone library synced in afterward. This is intentional, it makes it easy to iterate and test changes against a real project while working on the wrapper. If you clone this repo to contribute, you'll likely want to drop it into `addons/netfoxcs` of a Godot + netfox test project so you can run and verify changes in-editor.
 
 ## Contributing
 
