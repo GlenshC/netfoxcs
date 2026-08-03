@@ -3,7 +3,7 @@ using Godot;
 
 namespace Netfox;
 
-public abstract partial class NativeWrapper<T>: GodotObject where T : GodotObject
+public abstract partial class NativeWrapper<T>: GodotObject, INativeWrapper<T> where T : GodotObject
 {
 	public T ObjectInstance { get; private set; }
 
@@ -45,10 +45,7 @@ public abstract partial class NativeWrapper<T>: GodotObject where T : GodotObjec
 	{
 		if (resource != null)
 		{
-			var script = (Script)resource.GetScript();
-
-			string scriptName = script?.GetGlobalName();
-			var classname = string.IsNullOrWhiteSpace(scriptName) ? resource.GetClass() : scriptName;
+			var classname = GetObjectClassName(resource);
 			if (classname != GdClassName)
 			{
 				throw new InvalidCastException(
@@ -74,6 +71,13 @@ public abstract partial class NativeWrapper<T>: GodotObject where T : GodotObjec
 		{
 			return (T)ClassDB.Instantiate(GetType().Name);
 		}
+	}
+
+	public static string GetObjectClassName(GodotObject obj)
+	{
+		var script = (Script)obj.GetScript();
+		string scriptName = script?.GetGlobalName();
+		return string.IsNullOrWhiteSpace(scriptName) ? obj.GetClass() : scriptName;
 	}
 
 	public static implicit operator T(NativeWrapper<T> myObj)

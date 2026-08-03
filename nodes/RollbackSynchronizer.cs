@@ -4,7 +4,7 @@ using Godot;
 using Godot.Collections;
 
 
-public partial class RollbackSynchronizer : NodeWrapper<Node>
+public partial class RollbackSynchronizer : NodeWrapper<Node>, IDataSynchronizer
 {
 
 #region Constructors
@@ -161,8 +161,11 @@ public partial class RollbackSynchronizer : NodeWrapper<Node>
 	public long GetLastKnownState() { return (long)ObjectInstance.Call(MethodNameGd.GetLastKnownState); }
 
 	public void Spawn() { ObjectInstance.Call(MethodNameGd.Spawn); }
+	public void Spawn(long tick) { ObjectInstance.Call(MethodNameGd.Spawn, tick); }
 	public void Despawn() { ObjectInstance.Call(MethodNameGd.Despawn); }
+	public void Despawn(long tick) { ObjectInstance.Call(MethodNameGd.Despawn, tick); }
 	public bool IsAlive() { return (bool)ObjectInstance.Call(MethodNameGd.IsAlive); }
+	public bool IsAlive(long tick) { return (bool)ObjectInstance.Call(MethodNameGd.IsAlive, tick); }
 	public bool SetSchema(Dictionary schema) { return (bool)ObjectInstance.Call(MethodNameGd.SetSchema, schema); }
 	public bool MergeSchema(Dictionary schema) { return (bool)ObjectInstance.Call(MethodNameGd.MergeSchema, schema); }
 	public bool ClearSchema() { return (bool)ObjectInstance.Call(MethodNameGd.ClearSchema); }

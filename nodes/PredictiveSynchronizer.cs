@@ -1,12 +1,12 @@
 ﻿using System;
 using Godot;
+using Godot.Collections;
 
 namespace Netfox;
 
-public partial class PredictiveSynchronizer : NodeWrapper<Node>
+public partial class PredictiveSynchronizer : NodeWrapper<Node>, IDataSynchronizer
 {
 #region Constructors
-
 	public PredictiveSynchronizer(): base()
 	{
 	}
@@ -23,9 +23,9 @@ public partial class PredictiveSynchronizer : NodeWrapper<Node>
 		get => (Node)ObjectInstance.Call(PropertyNameGd.Root);
 		set => ObjectInstance.Call(PropertyNameGd.Root, value);
 	}
-	public string[] StateProperties
+	public Array<string> StateProperties
 	{
-		get => (string[])ObjectInstance.Call(PropertyNameGd.StateProperties);
+		get => (Array<string>)ObjectInstance.Call(PropertyNameGd.StateProperties);
 		set => ObjectInstance.Call(PropertyNameGd.StateProperties, value);
 	}
 	public long SpawnTick
@@ -68,9 +68,9 @@ public partial class PredictiveSynchronizer : NodeWrapper<Node>
 		return (bool)ObjectInstance.Call(MethodNameGd.IsAlive, tick);
 	}
 
-	public bool AddState(Variant node, string property)
+	public void AddState(Variant node, string property)
 	{
-		return (bool)ObjectInstance.Call(MethodNameGd.AddState, node, property);
+		ObjectInstance.Call(MethodNameGd.AddState, node, property);
 	}
 #endregion
 
