@@ -44,13 +44,33 @@ public partial class NetworkEvents : NativeWrapper<Node>
     internal NetworkEvents(Node networkTimeGd): base(networkTimeGd)
     {
 	    _networkEventsGd = ObjectInstance;
-        _networkEventsGd.Connect(SignalNameGd.OnMultiplayerChange, Callable.From((MultiplayerApi oldApi, MultiplayerApi newApi) => EmitSignal(SignalName.OnMultiplayerChange, oldApi, newApi)));
-        _networkEventsGd.Connect(SignalNameGd.OnServerStart, Callable.From(() => EmitSignal(SignalName.OnServerStart)));
-        _networkEventsGd.Connect(SignalNameGd.OnServerStop, Callable.From(() => EmitSignal(SignalName.OnServerStop)));
-        _networkEventsGd.Connect(SignalNameGd.OnClientStart, Callable.From((long clientId) => EmitSignal(SignalName.OnClientStart, clientId)));
-        _networkEventsGd.Connect(SignalNameGd.OnClientStop, Callable.From(() => EmitSignal(SignalName.OnClientStop)));
-        _networkEventsGd.Connect(SignalNameGd.OnPeerJoin, Callable.From((long clientId) => EmitSignal(SignalName.OnPeerJoin, clientId)));
-        _networkEventsGd.Connect(SignalNameGd.OnPeerLeave, Callable.From((long clientId) => EmitSignal(SignalName.OnPeerLeave, clientId)));
+        _networkEventsGd.Connect(SignalNameGd.OnMultiplayerChange, Callable.From<MultiplayerApi, MultiplayerApi>(EmitSignalOnMultiplayerChange));
+        _networkEventsGd.Connect(SignalNameGd.OnServerStart, Callable.From(EmitSignalOnServerStart));
+        _networkEventsGd.Connect(SignalNameGd.OnServerStop, Callable.From(EmitSignalOnServerStop));
+        _networkEventsGd.Connect(SignalNameGd.OnClientStart, Callable.From<long>(EmitSignalOnClientStart));
+        _networkEventsGd.Connect(SignalNameGd.OnClientStop, Callable.From(EmitSignalOnClientStop));
+        _networkEventsGd.Connect(SignalNameGd.OnPeerJoin, Callable.From<long>(EmitSignalOnPeerJoin));
+        _networkEventsGd.Connect(SignalNameGd.OnPeerLeave, Callable.From<long>(EmitSignalOnPeerLeave));
+    }
+
+    private void DisconnectSignals()
+    {
+        _networkEventsGd.Disconnect(SignalNameGd.OnMultiplayerChange, Callable.From<MultiplayerApi, MultiplayerApi>(EmitSignalOnMultiplayerChange));
+        _networkEventsGd.Disconnect(SignalNameGd.OnServerStart, Callable.From(EmitSignalOnServerStart));
+        _networkEventsGd.Disconnect(SignalNameGd.OnServerStop, Callable.From(EmitSignalOnServerStop));
+        _networkEventsGd.Disconnect(SignalNameGd.OnClientStart, Callable.From<long>(EmitSignalOnClientStart));
+        _networkEventsGd.Disconnect(SignalNameGd.OnClientStop, Callable.From(EmitSignalOnClientStop));
+        _networkEventsGd.Disconnect(SignalNameGd.OnPeerJoin, Callable.From<long>(EmitSignalOnPeerJoin));
+        _networkEventsGd.Disconnect(SignalNameGd.OnPeerLeave, Callable.From<long>(EmitSignalOnPeerLeave));
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+	    if (disposing)
+	    {
+		    DisconnectSignals();
+	    }
+	    base.Dispose(disposing);
     }
 
 #region Signals

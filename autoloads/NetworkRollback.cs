@@ -67,16 +67,33 @@ public partial class NetworkRollback : NodeWrapper<Node>
 	internal NetworkRollback(Node networkTimeGd): base(networkTimeGd)
 	{
 		_networkRollbackGd = ObjectInstance;
-		_networkRollbackGd.Connect(SignalNameGd.BeforeLoop, Callable.From(() => EmitSignal(SignalName.BeforeLoop)));
-		_networkRollbackGd.Connect(SignalNameGd.OnPrepareTick, Callable.From((long tick) => EmitSignal(SignalName.OnPrepareTick, tick)));
-		_networkRollbackGd.Connect(SignalNameGd.AfterPrepareTick, Callable.From((long tick) => EmitSignal(SignalName.AfterPrepareTick, tick)));
-		_networkRollbackGd.Connect(SignalNameGd.OnProcessTick, Callable.From((long tick) => EmitSignal(SignalName.OnProcessTick, tick)));
-		_networkRollbackGd.Connect(SignalNameGd.AfterProcessTick, Callable.From((long tick) => EmitSignal(SignalName.AfterProcessTick, tick)));
-		_networkRollbackGd.Connect(SignalNameGd.OnRecordTick, Callable.From((long tick) => EmitSignal(SignalName.OnRecordTick, tick)));
-		_networkRollbackGd.Connect(SignalNameGd.AfterLoop, Callable.From(() => EmitSignal(SignalName.AfterLoop)));
+		_networkRollbackGd.Connect(SignalNameGd.BeforeLoop, Callable.From(EmitSignalBeforeLoop));
+		_networkRollbackGd.Connect(SignalNameGd.OnPrepareTick, Callable.From<long>(EmitSignalOnPrepareTick));
+		_networkRollbackGd.Connect(SignalNameGd.AfterPrepareTick, Callable.From<long>(EmitSignalAfterPrepareTick));
+		_networkRollbackGd.Connect(SignalNameGd.OnProcessTick, Callable.From<long>(EmitSignalOnProcessTick));
+		_networkRollbackGd.Connect(SignalNameGd.AfterProcessTick, Callable.From<long>(EmitSignalAfterProcessTick));
+		_networkRollbackGd.Connect(SignalNameGd.OnRecordTick, Callable.From<long>(EmitSignalOnRecordTick));
+		_networkRollbackGd.Connect(SignalNameGd.AfterLoop, Callable.From(EmitSignalAfterLoop));
 	}
 
-#region Signals
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			_networkRollbackGd.Disconnect(SignalNameGd.BeforeLoop, Callable.From(EmitSignalBeforeLoop));
+			_networkRollbackGd.Disconnect(SignalNameGd.OnPrepareTick, Callable.From<long>(EmitSignalOnPrepareTick));
+			_networkRollbackGd.Disconnect(SignalNameGd.AfterPrepareTick, Callable.From<long>(EmitSignalAfterPrepareTick));
+			_networkRollbackGd.Disconnect(SignalNameGd.OnProcessTick, Callable.From<long>(EmitSignalOnProcessTick));
+			_networkRollbackGd.Disconnect(SignalNameGd.AfterProcessTick, Callable.From<long>(EmitSignalAfterProcessTick));
+			_networkRollbackGd.Disconnect(SignalNameGd.OnRecordTick, Callable.From<long>(EmitSignalOnRecordTick));
+			_networkRollbackGd.Disconnect(SignalNameGd.AfterLoop, Callable.From(EmitSignalAfterLoop));
+
+		}
+		base.Dispose(disposing);
+	}
+
+
+	#region Signals
 	/// <summary>Event emitted before running the network rollback loop.</summary>
 	[Signal]
 	public delegate void BeforeLoopEventHandler();

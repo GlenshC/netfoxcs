@@ -119,15 +119,29 @@ public partial class NetworkTime : NodeWrapper<Node>
     internal NetworkTime(Node networkTimeGd): base(networkTimeGd)
     {
         _networkTimeGd = ObjectInstance;
-        _networkTimeGd.Connect(SignalNameGd.BeforeTickLoop, Callable.From(() => EmitSignal(SignalName.BeforeTickLoop)));
-        _networkTimeGd.Connect(SignalNameGd.BeforeTick, Callable.From((double delta, long tick) => EmitSignal(SignalName.BeforeTick, delta, tick)));
-        _networkTimeGd.Connect(SignalNameGd.OnTick, Callable.From((double delta, long tick) => EmitSignal(SignalName.OnTick, delta, tick)));
-        _networkTimeGd.Connect(SignalNameGd.AfterTick, Callable.From((double delta, long tick) => EmitSignal(SignalName.AfterTick, delta, tick)));
-        _networkTimeGd.Connect(SignalNameGd.AfterTickLoop, Callable.From(() => EmitSignal(SignalName.AfterTickLoop)));
-        _networkTimeGd.Connect(SignalNameGd.AftereSync, Callable.From(() => EmitSignal(SignalName.AfterSync)));
-        _networkTimeGd.Connect(SignalNameGd.AfterClientSync, Callable.From((long peerId) => EmitSignal(SignalName.AfterClientSync, peerId)));
+        _networkTimeGd.Connect(SignalNameGd.BeforeTickLoop, Callable.From(EmitSignalBeforeTickLoop));
+        _networkTimeGd.Connect(SignalNameGd.BeforeTick, Callable.From<double,long>(EmitSignalBeforeTick));
+        _networkTimeGd.Connect(SignalNameGd.OnTick, Callable.From<double,long>(EmitSignalOnTick));
+        _networkTimeGd.Connect(SignalNameGd.AfterTick, Callable.From<double,long>(EmitSignalAfterTick));
+        _networkTimeGd.Connect(SignalNameGd.AfterTickLoop, Callable.From(EmitSignalAfterTickLoop));
+        _networkTimeGd.Connect(SignalNameGd.AftereSync, Callable.From(EmitSignalAfterSync));
+        _networkTimeGd.Connect(SignalNameGd.AfterClientSync, Callable.From<long>(EmitSignalAfterClientSync));
     }
+    protected override void Dispose(bool disposing)
+    {
+	    if (disposing)
+	    {
+	        _networkTimeGd.Disconnect(SignalNameGd.BeforeTickLoop, Callable.From(EmitSignalBeforeTickLoop));
+	        _networkTimeGd.Disconnect(SignalNameGd.BeforeTick, Callable.From<double,long>(EmitSignalBeforeTick));
+	        _networkTimeGd.Disconnect(SignalNameGd.OnTick, Callable.From<double,long>(EmitSignalOnTick));
+	        _networkTimeGd.Disconnect(SignalNameGd.AfterTick, Callable.From<double,long>(EmitSignalAfterTick));
+	        _networkTimeGd.Disconnect(SignalNameGd.AfterTickLoop, Callable.From(EmitSignalAfterTickLoop));
+	        _networkTimeGd.Disconnect(SignalNameGd.AftereSync, Callable.From(EmitSignalAfterSync));
+	        _networkTimeGd.Disconnect(SignalNameGd.AfterClientSync, Callable.From<long>(EmitSignalAfterClientSync));
 
+	    }
+	    base.Dispose(disposing);
+    }
     #region Signals
     /// <summary>Emitted before a tick loop is run.</summary>
     [Signal]

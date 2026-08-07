@@ -19,12 +19,17 @@ public partial class NodeWrapper<T> : NativeWrapper<T> where T : Node
 		DisconnectNodeSignals();
 		base.SetInstance(node);
 		ConnectNodeSignals();
+
 		return this;
 	}
 
-	~NodeWrapper()
+	protected override void Dispose(bool disposing)
 	{
-		DisconnectNodeSignals();
+		if (disposing)
+		{
+			DisconnectNodeSignals();
+		}
+		base.Dispose(disposing);
 	}
 
 	private void ConnectNodeSignals()

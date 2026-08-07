@@ -51,8 +51,17 @@ public partial class NetworkTimeSynchronizer : NodeWrapper<Node>
 	internal NetworkTimeSynchronizer(Node networkTimeGd) : base(networkTimeGd)
 	{
 		_networkTimeSynchronizerGd = ObjectInstance;
-		_networkTimeSynchronizerGd.Connect(SignalNameGd.OnInitialSync, Callable.From(() => EmitSignal(SignalName.OnInitialSync)));
-		_networkTimeSynchronizerGd.Connect(SignalNameGd.OnPanic, Callable.From((double offset) => EmitSignal(SignalName.OnPanic, offset)));
+		_networkTimeSynchronizerGd.Connect(SignalNameGd.OnInitialSync, Callable.From(EmitSignalOnInitialSync));
+		_networkTimeSynchronizerGd.Connect(SignalNameGd.OnPanic, Callable.From<double>(EmitSignalOnPanic));
+	}
+	protected override void Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+			_networkTimeSynchronizerGd.Disconnect(SignalNameGd.OnInitialSync, Callable.From(EmitSignalOnInitialSync));
+			_networkTimeSynchronizerGd.Disconnect(SignalNameGd.OnPanic, Callable.From<double>(EmitSignalOnPanic));
+		}
+		base.Dispose(disposing);
 	}
 
 	#region Signals

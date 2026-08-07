@@ -3,7 +3,7 @@ using Godot;
 
 namespace Netfox;
 
-public abstract partial class NativeWrapper<T>: GodotObject, INativeWrapper<T> where T : GodotObject
+public abstract partial class NativeWrapper<T>: RefCounted, INativeWrapper<T> where T : GodotObject
 {
 	public T ObjectInstance { get; private set; }
 
@@ -27,7 +27,7 @@ public abstract partial class NativeWrapper<T>: GodotObject, INativeWrapper<T> w
 	/**
 	 * if resource == null, it sets ObjectInstance to null. Good for having a wrapper ready just in case
 	 */
-	protected  NativeWrapper(T resource, bool tryInstantiateIfNull = false)
+	protected NativeWrapper(T resource, bool tryInstantiateIfNull = false)
 	{
 		if (resource == null && tryInstantiateIfNull)
 		{
@@ -35,12 +35,7 @@ public abstract partial class NativeWrapper<T>: GodotObject, INativeWrapper<T> w
 		}
 		SetInstance(resource);
 	}
-
-	~NativeWrapper()
-	{
-		Free();
-	}
-
+	
 	public virtual NativeWrapper<T> SetInstance(T resource)
 	{
 		if (resource != null)
