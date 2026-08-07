@@ -4,7 +4,10 @@ namespace Netfox;
 
 public class NetworkSchemas
 {
-	private static Script _script = GD.Load<Script>("res://addons/netfox/schemas/network-schemas.gd");
+	private static readonly Script _script = GD.Load<Script>("res://addons/netfox/schemas/network-schemas.gd");
+	private static readonly Script _customScript = GD.Load<Script>("res://addons/netfoxcs/extras/schema_vec2i.gd");
+
+	#region Netfox Methods
 
 	/// <summary>
     /// Serialize any data type supported by @GlobalScope.var_to_bytes().
@@ -575,6 +578,26 @@ public class NetworkSchemas
     {
         return _script.Call(MethodNameGd.Dictionary, keySerializer, valueSerializer, sizeSerializer);
     }
+	#endregion
+
+
+    #region CustomMethods
+    public static Variant Vec2I(Variant componentSerializer)
+    {
+        return _customScript.Call(MethodNameGd.Vec2I, componentSerializer);
+    }
+    public static Variant Vec3I(Variant componentSerializer)
+    {
+        return _customScript.Call(MethodNameGd.Vec3I, componentSerializer);
+    }
+    public static Variant Vec4I(Variant componentSerializer)
+    {
+        return _customScript.Call(MethodNameGd.Vec4I, componentSerializer);
+    }
+    #endregion
+
+
+    #region StringName Constants
 
     static class MethodNameGd
     {
@@ -640,6 +663,12 @@ public class NetworkSchemas
         public static readonly StringName Transform3F64 = "transform3f64";
         public static readonly StringName ArrayOf = "array_of";
         public static readonly StringName Dictionary = "dictionary";
+
+
+        public static readonly StringName Vec2I = "vec2i";
+        public static readonly StringName Vec3I = "vec3i";
+        public static readonly StringName Vec4I = "vec4i";
     }
 
+    #endregion
 }

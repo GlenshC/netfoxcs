@@ -167,7 +167,9 @@ public partial class RollbackSynchronizer : NodeWrapper<Node>, IDataSynchronizer
 	public bool IsAlive() { return (bool)ObjectInstance.Call(MethodNameGd.IsAlive); }
 	public bool IsAlive(long tick) { return (bool)ObjectInstance.Call(MethodNameGd.IsAlive, tick); }
 	public bool SetSchema(Dictionary schema) { return (bool)ObjectInstance.Call(MethodNameGd.SetSchema, schema); }
+	public bool SetSchema(Dictionary<StringName, Variant> schema) { return (bool)ObjectInstance.Call(MethodNameGd.SetSchema, schema); }
 	public bool MergeSchema(Dictionary schema) { return (bool)ObjectInstance.Call(MethodNameGd.MergeSchema, schema); }
+	public bool MergeSchema(Dictionary<StringName, Variant> schema) { return (bool)ObjectInstance.Call(MethodNameGd.MergeSchema, schema); }
 	public bool ClearSchema() { return (bool)ObjectInstance.Call(MethodNameGd.ClearSchema); }
 #endregion
 
