@@ -12,6 +12,7 @@ public partial class NetfoxCs: Node
 	public static NetworkRollback NetworkRollback;
 	/// <summary>Reference to the netfox autoload NetworkEvents.</summary>
 	public static NetworkEvents NetworkEvents;
+	public static NetworkCommandServer NetworkCommandServer;
 
 	public override void _EnterTree()
 	{
@@ -19,5 +20,6 @@ public partial class NetfoxCs: Node
 		NetworkTimeSynchronizer = new(GetNode("/root/NetworkTimeSynchronizer"));
 		NetworkRollback = new(GetNode("/root/NetworkRollback"));
 		NetworkEvents = new(GetNode("/root/NetworkEvents"));
+		NetworkCommandServer = new(GetNode("/root/NetworkCommandServer"));
 	}
 }
