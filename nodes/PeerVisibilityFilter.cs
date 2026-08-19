@@ -3,6 +3,7 @@ using Godot.Collections;
 
 namespace Netfox;
 
+[Tool]
 public partial class PeerVisibilityFilter : NodeWrapper<Node>
 {
 #region Constructors

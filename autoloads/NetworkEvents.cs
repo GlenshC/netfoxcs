@@ -21,6 +21,8 @@ using Godot;
 ///
 /// <para>See the <see href="https://foxssake.github.io/netfox/latest/netfox/guides/network-events/">
 /// NetworkEvents</see> netfox guide for more information.</para></summary>
+
+
 public partial class NetworkEvents : NativeWrapper<Node>
 {
 	protected override StringName GdClassName => "_NetworkEvents";

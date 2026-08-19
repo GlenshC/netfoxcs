@@ -4,6 +4,8 @@ using Godot.Collections;
 
 namespace Netfox;
 
+
+[Tool]
 public partial class PredictiveSynchronizer : NodeWrapper<Node>, IDataSynchronizer
 {
 #region Constructors
@@ -21,17 +23,17 @@ public partial class PredictiveSynchronizer : NodeWrapper<Node>, IDataSynchroniz
 	public Node Root
 	{
 		get => (Node)ObjectInstance.Call(PropertyNameGd.Root);
-		set => ObjectInstance.Call(PropertyNameGd.Root, value);
+		set => ObjectInstance?.Call(PropertyNameGd.Root, value);
 	}
 	public Array<string> StateProperties
 	{
 		get => (Array<string>)ObjectInstance.Call(PropertyNameGd.StateProperties);
-		set => ObjectInstance.Call(PropertyNameGd.StateProperties, value);
+		set => ObjectInstance?.Call(PropertyNameGd.StateProperties, value);
 	}
 	public long SpawnTick
 	{
 		get => (long)ObjectInstance.Call(PropertyNameGd.SpawnTick);
-		set => ObjectInstance.Call(PropertyNameGd.SpawnTick, value);
+		set => ObjectInstance?.Call(PropertyNameGd.SpawnTick, value);
 	}
 #endregion
 

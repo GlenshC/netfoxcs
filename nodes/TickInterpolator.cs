@@ -5,6 +5,7 @@ namespace Netfox;
 /// <see href="https://github.com/foxssake/netfox/"> netfox</see> addon.</para>
 /// <para>Responsible for interpolating fields between network ticks, resulting
 /// in smoother motion.</para></summary>
+[Tool]
 public partial class TickInterpolator : NodeWrapper<Node>
 {
 	public TickInterpolator()

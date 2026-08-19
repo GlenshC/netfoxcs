@@ -9,6 +9,8 @@ public enum RewindableActionStatus
 	Active = 2,
 	Cancelling = 3
 }
+
+[Tool]
 public partial class RewindableAction : NodeWrapper<Node>
 {
 

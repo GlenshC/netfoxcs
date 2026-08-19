@@ -2,6 +2,7 @@
 
 namespace Netfox;
 
+
 public class NetworkSchemas
 {
 	private static readonly Script _script = GD.Load<Script>("res://addons/netfox/schemas/network-schemas.gd");

@@ -7,6 +7,7 @@ namespace Netfox;
 /// <see href="https://github.com/foxssake/netfox/"> netfox</see> addon.</para>
 /// <para>Responsible for synchronizing state from the node's authority to
 /// other peers.</para></summary>
+[Tool]
 public partial class StateSynchronizer : NodeWrapper<Node>
 {
 	public StateSynchronizer()
