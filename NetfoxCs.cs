@@ -36,7 +36,9 @@ public partial class NetfoxCs: Node
 	public static NetworkHistoryServer NetworkHistoryServer;
 
 	/// <summary>Reload NetworkHistoryServer, this prevents tick rejection from previous game.</summary>
-	public static void Reload() => NetworkHistoryServer?.Reload();
+	public static void Reload()
+	{
+	}
 
 	public override void _EnterTree()
 	{

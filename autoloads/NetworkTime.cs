@@ -217,6 +217,9 @@ public partial class NetworkTime : NodeWrapper<Node>
     /// <returns>The difference in ticks between the values. Returns a negative number if
     /// toSecond is smaller than fromSecond.</returns>
     public static long TicksBetween(double fromSecond, double toSecond) { return (long)_networkTimeGd.Call(MethodNameGd.TicksBetween, fromSecond, toSecond); }
+
+
+    public void Reload() => _networkTimeGd.Call(MethodNameGd.Reload);
     #endregion
 
     #region StringName Constants
@@ -230,7 +233,8 @@ public partial class NetworkTime : NodeWrapper<Node>
             TicksToSeconds = "ticks_to_seconds",
             SecondsToTicks = "seconds_to_ticks",
             SecondsBetween = "seconds_between",
-            TicksBetween = "ticks_between";
+            TicksBetween = "ticks_between",
+            Reload = "reload";
 
     }
     static class PropertyNameGd
@@ -270,4 +274,5 @@ public partial class NetworkTime : NodeWrapper<Node>
             AfterClientSync = "after_client_sync";
     }
     #endregion
+
 }
