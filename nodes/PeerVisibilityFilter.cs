@@ -83,6 +83,10 @@ public partial class PeerVisibilityFilter : NodeWrapper<Node>
 	/// <param name="peer">The peer ID to remove the override of.</param>
 	public void UnsetVisibilityFor(long peer) =>
 		ObjectInstance.Call(MethodNameGd.UnsetVisibilityFor, peer);
+	
+	/// <summary>Recalculates visibility for each known peer.</summary>
+	/// <param name="peers">The list of peers to update the visibility of.</param>
+	public void UpdateVisibility() => ObjectInstance.Call(MethodNameGd.UpdateVisibility);
 	/// <summary>Recalculates visibility for each known peer.</summary>
 	/// <param name="peers">The list of peers to update the visibility of.</param>
 	public void UpdateVisibility(Array<int> peers) =>
